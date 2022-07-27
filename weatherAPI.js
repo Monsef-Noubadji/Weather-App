@@ -5,6 +5,7 @@ const searchInput = wrapperDiv.querySelector("input");
 const CurrentLocation = inputPart.querySelector("button");
 let weatherIcon = document.getElementById("weather-img");
 let backArrow = wrapperDiv.querySelector("header i");
+let body = document.body;
 let api;
 
 searchInput.addEventListener("keyup", e => {
@@ -23,16 +24,16 @@ CurrentLocation.addEventListener("click", () => {
     }
 })
 // fetch the api using user coordinates
-onSuccess = (position) => {
-    const { latitude, longitude } = position.coords; // retrieve lat and long of the user device
-    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apikey}`;
-    fetchUserData(api)
-}
 fetchUserData = (api) => {
     Message.textContent = "Fetching Details 🕙 .."
     Message.classList.add("pending");
     // receiving the api response as an object and passing it into the weatherDetails method
     fetch(api).then(response => response.json()).then(result => weatherDetails(result));
+}
+onSuccess = (position) => {
+    const { latitude, longitude } = position.coords; // retrieve lat and long of the user device
+    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apikey}`;
+    fetchUserData(api)
 }
 onError = (error) => {
     Message.textContent = "Error getting your location 🛑";
@@ -94,4 +95,9 @@ function weatherDetails(result) {
 
 backArrow.addEventListener("click", () => {
     wrapperDiv.classList.remove("active");
+
 });
+
+toggleMode = () => {
+    body.classList.toggle("dark-mode");
+}

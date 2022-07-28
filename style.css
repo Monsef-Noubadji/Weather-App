@@ -213,8 +213,3 @@ header i {
 .humidity i {
   font-size: 37px;
 }
-
-.dark-mode {
-  background-color: black;
-  color: white;
-}
